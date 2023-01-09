@@ -14,19 +14,19 @@ def extract_str_data(data, first_dict_key, collected_data):
 
     if KEY_DICT.PHOTO is first_dict_key:
         collected_data['profile']['photo'] = data
-    elif first_dict_key in KEY_DICT.FIRST_KEYS[1:13]:
+    elif first_dict_key in KEY_DICT.FIRST_KEYS[1:14]:
         if bool(data) is True:
             collected_data['profile'][first_dict_key] = data
         else:
             collected_data['profile'][first_dict_key] = None
 
-    if first_dict_key in KEY_DICT.FIRST_KEYS[13:22]:
+    if first_dict_key in KEY_DICT.FIRST_KEYS[14:23]:
         if bool(data) is True:
             collected_data['interests'][first_dict_key] = data
         else:
             collected_data['interests'][first_dict_key] = None
 
-    if first_dict_key in KEY_DICT.FIRST_KEYS[22:26]:
+    if first_dict_key in KEY_DICT.FIRST_KEYS[23:28]:
         if bool(data) is True:
             collected_data['university'][first_dict_key] = data
         else:
@@ -37,7 +37,8 @@ def extract_int_data(data, first_dict_key, collected_data):
     """ Извлекать числовые данные """
 
     index = data
-
+    if KEY_DICT.FOLLOWERS is first_dict_key:
+        collected_data['profile']['followers_count'] = data
     if KEY_DICT.GENDER is first_dict_key:
         collected_data['profile']['gender'] = users_gender[index]
 
@@ -81,6 +82,9 @@ def extract_dict_data(data, first_dict_key, collected_data):
         for key_dict in second_dict_keys:
             try:
                 index = data[key_dict]
+                if 'political' == key_dict:
+                    data_ = political_views[index]
+                    collected_data[first_dict_key][key_dict] = data_
                 if 'alcohol' == key_dict:
                     data_ = views_one_alcohol[index]
                     collected_data[first_dict_key][key_dict] = data_
@@ -135,7 +139,7 @@ def extract_list_data(data, first_dict_key, collected_data):
 
 def insert_none(first_dict_key, collected_data):
     second_dict_keys = None
-    if first_dict_key in KEY_DICT.FIRST_KEYS[0:13]:
+    if first_dict_key in KEY_DICT.FIRST_KEYS[0:14]:
         if first_dict_key is KEY_DICT.GENDER:
             collected_data['profile']['gender'] = None
         elif first_dict_key is KEY_DICT.PHOTO:
@@ -143,9 +147,9 @@ def insert_none(first_dict_key, collected_data):
         else:
             collected_data['profile'][first_dict_key] = None
 
-    if first_dict_key in KEY_DICT.FIRST_KEYS[13:22]:
+    if first_dict_key in KEY_DICT.FIRST_KEYS[14:23]:
         collected_data['interests'][first_dict_key] = None
-    if first_dict_key in KEY_DICT.FIRST_KEYS[22:26]:
+    if first_dict_key in KEY_DICT.FIRST_KEYS[23:27]:
         collected_data['university'][first_dict_key] = None
     if KEY_DICT.SCHOOLS is first_dict_key:
         second_dict_keys = KEY_DICT.schools

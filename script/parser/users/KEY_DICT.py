@@ -6,6 +6,7 @@ ONLINE = 'online'
 LAST_SEEN = 'last_seen'
 GENDER = 'sex'
 PHOTO = 'photo_max'
+FOLLOWERS = 'followers_count'
 B_DATE = 'bdate'
 CITY = 'city'
 COUNTRY = 'country'
@@ -44,6 +45,7 @@ FIRST_KEYS: list[str] = [
     LAST_SEEN,  # dict √
     GENDER,
     PHOTO,
+    FOLLOWERS,
     B_DATE,
     CITY,       # dict √
     COUNTRY,    # dict √
@@ -98,6 +100,7 @@ counters = [
         ]
 
 personals = [
+            'political',
             'alcohol',
             'religion',
             'smoking',

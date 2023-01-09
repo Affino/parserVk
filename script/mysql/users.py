@@ -23,11 +23,13 @@ def save(data, query, primary_key, index):
 
     for table_name in tables_names:
         column = ''
+        print(index)
         try:
             foreign_key = query.select_value(table_name, 'user_id')
             foreign_key = foreign_key[index]
         except IndexError:
             foreign_key = None
+
         for key, value in data[table_name].items():
             column += f' {key}="{value}",'
         column = column.replace('"None"', 'Null')

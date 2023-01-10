@@ -1,7 +1,5 @@
 from script.parser.captcha import auth_vk
 
-
-
 vk = auth_vk()
 
 fields = [

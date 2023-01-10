@@ -52,7 +52,6 @@ class Query:
         :param column: столбец
         :param foreign_key: внешний ключ
         :param col_foreign_key: столбец внешного ключа
-        :return:
         """
         try:
             query_update = f"UPDATE {table} SET {column} WHERE {col_foreign_key} = {foreign_key}"

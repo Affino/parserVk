@@ -1,22 +1,25 @@
-# import asyncio
+# from script.parser.captcha import auth_vk
 #
-# headers = {
-#     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 YaBrowser/22.11.0.2500 Yowser/2.5 Safari/537.36"
-# }
+# vk = auth_vk()
 #
-# async def get_group(id, vk):
-#     # сбор данных сообщество
-#     vk_group = vk.groups.getById(id=id, fields="members_count")
-#     return vk_group[0]
+# fields = [
+#     "status,"  "city," "activities," "photo_max,"
+#     "interests,"  "games," "country," "about,"
+#     "sex," "education," "books," "movies," "music,"
+#     "online," "quotes,"  "tv," "last_seen," "domain,"
+#     "contacts," "relation," "bdate," "followers_count,"
+#     "schools," "career," "relatives," "personal"
+# ]
 #
-# async def get(groups_ids, vk, addingGroupsData):
 #
-#     tasks = [
-#         asyncio.ensure_future(get_group(id, vk))
-#         for id in groups_ids
-#     ]
+# def get(user_ids):
+#     """ Получать данных пользователя
 #
-#     groups_data = await asyncio.gather(*tasks)
+#     :param user_ids: идентификатор пользователя
+#     """
+#     uncollected_data = []
+#     data = vk.users.get(user_ids=user_ids, fields=fields)
+#     for i in data:
+#         uncollected_data.append(i)
 #
-#     for group_data in users_data:
-#         addingUsersData.append(user_data)
+#     return uncollected_data

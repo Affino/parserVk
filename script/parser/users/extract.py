@@ -117,14 +117,24 @@ def extract_list_data(data, first_dict_key, collected_data):
     if KEY_DICT.PERSONAL is first_dict_key:
         second_dict_keys = KEY_DICT.personals
     if KEY_DICT.RELATIVES is first_dict_key:
-        for i in range(0, 5):
-            try:
-                name = data[i]['name']
-                relative = data[i]['type']
-                collected_data['relatives'][relative] = name
-            except IndexError:
-                print(f'(Ошибка индекса {i}: данный родствиника не существует)')
-                collected_data['relatives'][KEY_DICT.relatives[i]] = None
+        if data == list():
+            insert_none(first_dict_key, collected_data)
+        for value in data:
+            if value['type'] == 'sibling':
+                name = value['name']
+                collected_data[first_dict_key][value['type']] = name
+            if value['type'] == 'parent':
+                name = value['name']
+                collected_data[first_dict_key][value['type']] = name
+            if value['type'] == 'child':
+                name = value['name']
+                collected_data[first_dict_key][value['type']] = name
+            if value['type'] == 'grandparent':
+                name = value['name']
+                collected_data[first_dict_key][value['type']] = name
+            if value['type'] == 'grandchild':
+                name = value['name']
+                collected_data[first_dict_key][value['type']] = name
 
     if second_dict_keys is not None:
         for second_dict_key in second_dict_keys:
@@ -146,6 +156,13 @@ def insert_none(first_dict_key, collected_data):
             collected_data['profile']['photo'] = None
         else:
             collected_data['profile'][first_dict_key] = None
+
+    if KEY_DICT.RELATIVES is first_dict_key:
+        collected_data[first_dict_key]['parent'] = None
+        collected_data[first_dict_key]['sibling'] = None
+        collected_data[first_dict_key]['child'] = None
+        collected_data[first_dict_key]['grandparent'] = None
+        collected_data[first_dict_key]['grandchild'] = None
 
     if first_dict_key in KEY_DICT.FIRST_KEYS[14:23]:
         collected_data['interests'][first_dict_key] = None
@@ -203,11 +220,11 @@ def extract(uncollected_data, collected_data):
                 extract_list_data(data, first_dict_key, collected_data)
                 # print(f'{n} This is list: {first_dict_key} {data}')
         except TypeError:
-            print(f'TypeError[{n}]: данный не существует {first_dict_key}')
+            # print(f'TypeError[{n}]: данный не существует {first_dict_key}')
             insert_none(first_dict_key, collected_data)
         except KeyError:
-            print(f'KeyError[{n}]: в словари не существует такой ключ {first_dict_key}')
+            # print(f'KeyError[{n}]: в словари не существует такой ключ {first_dict_key}')
             insert_none(first_dict_key, collected_data)
         except IndexError:
-            print(f'IndexError[{n}]: список {first_dict_key} пустой')
+            # print(f'IndexError[{n}]: список {first_dict_key} пустой')
             insert_none(first_dict_key, collected_data)

@@ -1,6 +1,6 @@
 import vk_api
 
-login, password = '87476878303', 'YO-Ox-7007#-($)'
+login, password = '', ''
 
 
 def captcha_handler(captcha):

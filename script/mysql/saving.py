@@ -1,16 +1,4 @@
-
-tables_names = [
-    'profile',
-    'interests',
-    'university',
-    'career',
-    'schools',
-    'relatives',
-    'life_position'
-]
-
-
-def save(data, query, primary_key, index):
+def save(data, query, tables_names, primary_key, index, col_foreign_key):
     """ Сохранить данные
 
     :param data: данные
@@ -19,17 +7,19 @@ def save(data, query, primary_key, index):
     :param index: индекс списка (для добавление первичного ключа чтобы обновить данные)
     """
 
-    col_foreign_key = 'user_id'
-
     for table_name in tables_names:
         column = ''
-        print(index)
+
         try:
-            foreign_key = query.select_value(table_name, 'user_id')
+            foreign_key = query.select_value(table_name, col_foreign_key)
             foreign_key = foreign_key[index]
         except IndexError:
             foreign_key = None
-
+        if primary_key == foreign_key:
+            foreign_key = query.select_value(table_name, col_foreign_key)
+            foreign_key = foreign_key[index]
+        else:
+            foreign_key = None
         for key, value in data[table_name].items():
             column += f' {key}="{value}",'
         column = column.replace('"None"', 'Null')

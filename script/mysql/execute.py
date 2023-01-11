@@ -11,7 +11,7 @@ class Query:
         )
         self.cursor = self.connection.cursor()
 
-        print("||Connected||")
+        print(f"||Connected: {db}||")
 
     def select_value(self, table, column):
         """ Забрать значение из таблицы
@@ -36,9 +36,11 @@ class Query:
         :param primary_key: первичный ключ
         """
         try:
+            # print(f'{4} - Первичный ключ в insert_id() {primary_key}')
             print(id)
             query_insert = "INSERT INTO {0} ({1}) VALUE ({2!r})".format(table, col_foreign_key, primary_key)
             print(query_insert)
+
             self.cursor.execute(query_insert)
             self.connection.commit()
 
@@ -63,7 +65,10 @@ class Query:
             print(ex)
 
     def update_data(self, table, primary_key, foreign_key, col_foreign_key, column):
+        # print(f'{2} - Первичный ключ в update_data() {primary_key}')
+        print(f'Внешний ключ {foreign_key}')
         if foreign_key is None:
+            # print(f'{3} - Первичный ключ после if {primary_key}')
             self.insert_id(table, col_foreign_key, primary_key)
         else:
             self.update(table, column, foreign_key, col_foreign_key)

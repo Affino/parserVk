@@ -17,9 +17,14 @@ def get(user_ids):
 
     :param user_ids: идентификатор пользователя
     """
-    uncollected_data = []
-    data = vk.users.get(user_ids=user_ids, fields=fields)
-    for i in data:
-        uncollected_data.append(i)
+    try:
+        uncollected_data = []
+        data = vk.users.get(user_ids=user_ids, fields=fields)
+        for i in data:
+            uncollected_data.append(i)
 
-    return uncollected_data
+        return uncollected_data
+    except AttributeError:
+        print("Error")
+
+

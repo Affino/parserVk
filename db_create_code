@@ -1,0 +1,117 @@
+CREATE DATABASE groups_vk;
+USE groups_vk;
+
+CREATE TABLE resource_groups (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    vk_id VARCHAR(255)
+);
+
+CREATE TABLE groups_info (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    group_id INT,
+    name VARCHAR(255),
+    url VARCHAR(255),
+    is_closed VARCHAR(255),
+    photo_200 VARCHAR(255),
+    members_count VARCHAR(255),
+    status VARCHAR(5600),
+    description VARCHAR(5600),
+    type VARCHAR(255),
+    FOREIGN KEY (group_id) REFERENCES resource_groups(id)
+);
+
+CREATE DATABASE users_vk;
+USE users_vk;
+CREATE TABLE resource_users (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    vk_id varchar(255));
+
+CREATE TABLE profile (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    url VARCHAR(255),
+    activity VARCHAR(255),
+    last_seen VARCHAR(255),
+    gender VARCHAR(255),
+    photo VARCHAR(255),
+    followers_count VARCHAR(255),
+    bdate VARCHAR(255),
+    city VARCHAR(255),
+    country VARCHAR(255),
+    mobile_phone VARCHAR(255),
+    relation VARCHAR(255),
+    status TEXT,
+    FOREIGN KEY (user_id) REFERENCES resource_users(id)
+);
+
+CREATE TABLE relatives (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    parent VARCHAR(255),
+    sibling VARCHAR(255),
+    child VARCHAR(255),
+    grandparent VARCHAR(255),
+    grandchild VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES resource_users(id)
+);
+
+CREATE TABLE interests (
+	 id INT AUTO_INCREMENT PRIMARY KEY,
+	 user_id INT,
+	 activities VARCHAR(255),
+	 interests VARCHAR(255),
+	 music VARCHAR(255),
+	 movies VARCHAR(255),
+	 tv VARCHAR(255),
+	 books VARCHAR(255),
+	 games VARCHAR(255),
+	 quotes VARCHAR(255),
+	 about VARCHAR(255),
+     FOREIGN KEY (user_id) REFERENCES resource_users(id)
+ );
+
+ CREATE TABLE career (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ user_id INT,
+ company VARCHAR(255),
+ from_ VARCHAR(255),
+ until_ VARCHAR(255),
+ position VARCHAR(255),
+ FOREIGN KEY (user_id) REFERENCES resource_users(id)
+);
+
+CREATE TABLE schools (
+	id  INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    name VARCHAR(255),
+    year_from VARCHAR(255),
+    year_graduated VARCHAR(255),
+    year_to VARCHAR(255),
+    speciality VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES resource_users(id)
+);
+
+CREATE TABLE university (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    university_name VARCHAR(255),
+    faculty_name VARCHAR(255),
+    education_status VARCHAR(255),
+    graduation VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES resource_users(id)
+);
+
+CREATE TABLE life_position (
+	id  INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    political VARCHAR(255),
+    religion VARCHAR(255),
+    life_main VARCHAR(255),
+    people_main VARCHAR(255),
+    smoking VARCHAR(255),
+    alcohol VARCHAR(255),
+    inspired_by TEXT,
+    FOREIGN KEY (user_id) REFERENCES resource_users(id)
+);
